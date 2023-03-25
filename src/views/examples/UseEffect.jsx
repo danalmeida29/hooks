@@ -2,15 +2,26 @@ import React, {useEffect, useState} from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
+//------------------------------------------------------------------------------------/EX: 01\------------------------------------------------------------------------------------------
+
 function calcFatorial(num) {
     const n = parseInt(num)
     if(n < 0)return -1
     if(n === 0) return 1
     return calcFatorial(n - 1) * n
 }
+//------------------------------------------------------------------------------------/EX: 02\------------------------------------------------------------------------------------------
+
+function parOrImpar(n){
+    if( n % 2===0){
+        return 'Par'
+    }else{
+        return 'Ímpar'
+    }
+}
 
 const UseEffect = (props) => {
-
+    //------------------------------------------------------------------------------------/EX: 01\------------------------------------------------------------------------------------------
     const [number, setNumber] = useState(1);
     const [fatorial, setFatorial] = useState(1)
 
@@ -23,6 +34,16 @@ const UseEffect = (props) => {
             document.title = 'Eita!!!'
         }
     }, [fatorial])
+
+    //------------------------------------------------------------------------------------/EX: 02\------------------------------------------------------------------------------------------
+    
+    const [num, setNum] = useState(0);
+    const [parImpar, setParImpar] = useState('')
+
+    useEffect(function(){
+        setParImpar(parOrImpar(num))
+    }, [num])
+
 
     return (
         <div className="UseEffect">
@@ -43,7 +64,16 @@ const UseEffect = (props) => {
             </div>
 
             <SectionTitle title="Exercício #02"/>
-
+            <div className="center">
+                <div>
+                    <span className="text">O número escolhido é: </span>
+                    <span className="text red">{parImpar}</span>
+                </div>
+                <input type="number" className="input"
+                value={num}
+                onChange={e => setNum(e.target.value)}
+                />
+            </div>
         </div>
     )
 }
